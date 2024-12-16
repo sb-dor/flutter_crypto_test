@@ -1,7 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity 0.8.19;
 
 contract LifeMeaning {
-  constructor() public {
-  }
+
+    uint public lifeMeaning;
+
+    function set(uint x) public {
+        lifeMeaning = x;
+    }
+
+    function get() public view returns (uint) {
+        return lifeMeaning;
+    }
 }
