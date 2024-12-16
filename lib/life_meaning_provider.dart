@@ -11,7 +11,8 @@ const String ip = "192.168.100.3";
 const int port = 7545;
 const String _rpcURL = "http://$ip:$port";
 const String _wsUrl = "ws://$ip:$port";
-const String _privateKey = "0x7c8775bed4e598d6f8d9a40d1f9779e6c56b092f5b53c9e5cc1e77190e0f88e2";
+// key from ganache
+const String _privateKey = "0x1b93f6ca6ff89fc96f6c0e4384269df39fdbc274e4bdf181897e030310c0c187";
 
 class LifeMeaningProvider extends ChangeNotifier {
   late final Web3Client _web3client;
@@ -34,13 +35,14 @@ class LifeMeaningProvider extends ChangeNotifier {
     );
 
     final apiStringUrl = await DefaultAssetBundle.of(context).loadString(
-      'build/contracts/LifeMeaning.json',
+      'truffle_artifacts/LifeMeaning.json',
     );
 
     final abiJson = jsonDecode(apiStringUrl);
 
     final apiExtractedFromJson = jsonEncode(abiJson['abi']);
 
+    // network address all that stuff, are from a ganache where you created a test project
     final contractAddress = EthereumAddress.fromHex(
       abiJson['networks']['5777']['address'],
     );

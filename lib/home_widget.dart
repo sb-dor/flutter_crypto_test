@@ -22,6 +22,22 @@ class _HomeWidgetState extends State<HomeWidget> {
       appBar: AppBar(
         title: Text("Block-chain learning"),
       ),
+      body: Consumer<LifeMeaningProvider>(
+        builder: (context, provider, child) {
+          if (provider.loading) {
+            return CircularProgressIndicator();
+          } else {
+            return Center(
+              child: TextButton(
+                child: Text("${provider.lifeMeaning}"),
+                onPressed: () {
+                  context.read<LifeMeaningProvider>().setMeaning(BigInt.from(25));
+                },
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

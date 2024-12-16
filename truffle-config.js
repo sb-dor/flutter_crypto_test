@@ -65,7 +65,7 @@ module.exports = {
     // options below to some value.
     //
      development: {
-      host: "127.0.0.1",     // Localhost (default: none)
+      host: "192.168.100.3",     // Localhost (default: none)
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
      },
@@ -102,6 +102,8 @@ module.exports = {
   mocha: {
     // timeout: 100000
   },
+
+  contracts_build_directory: "./truffle_artifacts",
 
   // Configure your compilers
   compilers: {
