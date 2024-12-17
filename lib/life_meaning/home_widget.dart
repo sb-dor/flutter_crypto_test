@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_crypto_test/life_meaning_provider.dart';
+import 'package:flutter_crypto_test/life_meaning/life_meaning_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomeWidget extends StatefulWidget {
