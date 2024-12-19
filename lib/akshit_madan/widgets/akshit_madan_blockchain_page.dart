@@ -12,12 +12,10 @@ class AkshitMadanBlockchainPage extends StatefulWidget {
 }
 
 class _AkshitMadanBlockchainPageState extends State<AkshitMadanBlockchainPage> {
-
-
   @override
   void initState() {
     super.initState();
-    context.read<AkshitMadanBloc>().add(AkshitMadanEvent.init(context));
+    context.read<AkshitMadanBloc>().add(AkshitMadanEvent.init());
   }
 
   @override
@@ -63,6 +61,58 @@ class _AkshitMadanBlockchainPageState extends State<AkshitMadanBlockchainPage> {
               ],
             ),
             Text("Transactions"),
+            BlocBuilder<AkshitMadanBloc, AkshitMadanState>(
+              builder: (context, state) {
+                switch (state) {
+                  case InitialStateOnAkshitMadanState():
+                  case InProgressStateOnAkshitMadanState():
+                  case ErrorStateOnAkshitMadanState():
+                    return CircularProgressIndicator();
+                  case CompletedStateOnAkshitMadanState():
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: state.transactions.length,
+                        itemBuilder: (context, index) {
+                          final transaction = state.transactions[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 6),
+                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12), color: Colors.white),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 24,
+                                      height: 24,
+                                      color: Colors.pink,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      '${transaction.amount} ETH',
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Text(
+                                  transaction.address,
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                Text(
+                                  transaction.reason,
+                                  style: TextStyle(fontSize: 16),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                }
+              },
+            ),
           ],
         ),
       ),

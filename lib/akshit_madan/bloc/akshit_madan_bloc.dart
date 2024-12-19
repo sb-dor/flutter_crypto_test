@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,35 +15,36 @@ part 'akshit_madan_bloc.freezed.dart';
 const String rpcUrl = "http://192.168.100.3:7545";
 const String socketUrl = "ws://192.168.100.3:7545";
 
-const String address = "0x9571C52DB106a76F6aEfdb098cF3F2D0f8B6EE08";
-const String privateKey = "0x1b93f6ca6ff89fc96f6c0e4384269df39fdbc274e4bdf181897e030310c0c187";
+const String address = "0x381eD9FD189b71F4a22C4257dCd535351E521e41";
+const String privateKey = "0xbe79a1c28d6e0c4c81127c5c050bcbbe6d8db77aea3e126da3b347424674ccd4";
 
 @freezed
 class AkshitMadanEvent with _$AkshitMadanEvent {
-  const factory AkshitMadanEvent.init(BuildContext context) = _InitialEventOnAkshitMadanEvent;
+  const factory AkshitMadanEvent.init() = _InitialEventOnAkshitMadanEvent;
 
-  const factory AkshitMadanEvent.deposit(BuildContext context) = _DepositeEventOnAkshitMadanEvent;
+  const factory AkshitMadanEvent.deposit(int number, String reason) =
+      _DepositeEventOnAkshitMadanEvent;
 
-  const factory AkshitMadanEvent.withdraw(BuildContext context) = _WithdrawEventOnAkshitMadanEvent;
+  const factory AkshitMadanEvent.withdraw() = _WithdrawEventOnAkshitMadanEvent;
 
   const factory AkshitMadanEvent.refresh() = _RefreshEventOnAkshitMadanEvent;
 }
 
 @freezed
-class AkshitMadanState with _$AkshitMadanState {
+sealed class AkshitMadanState with _$AkshitMadanState {
   const factory AkshitMadanState.initial() = InitialStateOnAkshitMadanState;
 
   const factory AkshitMadanState.inProgress() = InProgressStateOnAkshitMadanState;
 
   const factory AkshitMadanState.errorState() = ErrorStateOnAkshitMadanState;
 
-  const factory AkshitMadanState.completed() = CompletedStateOnAkshitMadanState;
+  const factory AkshitMadanState.completed(List<TransactionModel> transactions) =
+      CompletedStateOnAkshitMadanState;
 }
 
 class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
   // all this data are temporary
 
-  List<TransactionModel> transactions = [];
   Web3Client? _web3Client;
   late ContractAbi _abiCode;
   late EthereumAddress _contractAddress;
@@ -82,25 +84,24 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       },
     );
 
-    final apiStringUrl = await rootBundle.loadString(
+    final abiFile = await rootBundle.loadString(
       'truffle_artifacts/ExpenseManagerContract.json',
     );
 
-    final abiJson = jsonDecode(apiStringUrl);
+    var jsonDecoded = jsonDecode(abiFile);
 
-    final apiExtractedFromJson = jsonEncode(abiJson['abi']);
+    _abiCode = ContractAbi.fromJson(
+      jsonEncode(jsonDecoded['abi']),
+      "ExpanseManagerContract",
+    );
 
-    // network address all that stuff, are from a ganache where you created a test project
-    final contractAddress = EthereumAddress.fromHex(
-      address,
+    _contractAddress = EthereumAddress.fromHex(
+      jsonDecoded['networks']['5777']['address'],
     );
 
     _creds = EthPrivateKey.fromHex(privateKey);
 
-    _deployedContract = DeployedContract(
-      ContractAbi.fromJson(apiExtractedFromJson, "ExpenseManagerContract"),
-      contractAddress,
-    );
+    _deployedContract = DeployedContract(_abiCode, _contractAddress);
 
     // get deployed contract
     _deposit = _deployedContract.function("deposit");
@@ -133,7 +134,7 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       ],
     );
 
-    print(balanceData);
+    print("balance: ${balanceData}");
 
     List<TransactionModel> transactions = [];
     // first length "i < transactionsData[0].length" is temp
@@ -151,17 +152,34 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       transactions.add(transactionModel);
     }
 
-    this.transactions = transactions;
 
     balance = int.tryParse("${balanceData[0]}") ?? 0;
 
-    emit(AkshitMadanState.completed());
+    emit(AkshitMadanState.completed(transactions));
   }
 
   void _depositEvent(
     _DepositeEventOnAkshitMadanEvent event,
     Emitter<AkshitMadanState> emit,
-  ) async {}
+  ) async {
+    final transaction = Transaction.callContract(
+      contract: _deployedContract,
+      function: _deposit,
+      parameters: [
+        BigInt.from(event.number),
+        event.reason,
+      ],
+    );
+
+    final result = await _web3Client!.sendTransaction(
+      _creds,
+      transaction,
+      fetchChainIdFromNetworkId: false,
+      chainId: 1337,
+    );
+
+    log(result);
+  }
 
   void _withdrawEvent(
     _WithdrawEventOnAkshitMadanEvent event,

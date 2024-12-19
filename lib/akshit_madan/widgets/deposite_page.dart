@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_crypto_test/akshit_madan/bloc/akshit_madan_bloc.dart';
 
 class DepositePage extends StatefulWidget {
   const DepositePage({super.key});
@@ -52,7 +54,15 @@ class _DepositePageState extends State<DepositePage> {
             ),
             SizedBox(height: 10),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<AkshitMadanBloc>().add(
+                      AkshitMadanEvent.deposit(
+                        int.tryParse(_amountController.text.trim()) ?? 0,
+                        _reasonController.text,
+                      ),
+                    );
+                Navigator.pop(context);
+              },
               child: Text(
                 "Deposite",
               ),
