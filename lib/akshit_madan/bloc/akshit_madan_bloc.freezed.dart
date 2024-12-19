@@ -19,18 +19,24 @@ mixin _$AkshitMadanEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(BuildContext context) init,
+    required TResult Function(BuildContext context) deposit,
+    required TResult Function(BuildContext context) withdraw,
     required TResult Function() refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(BuildContext context)? init,
+    TResult? Function(BuildContext context)? deposit,
+    TResult? Function(BuildContext context)? withdraw,
     TResult? Function()? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(BuildContext context)? init,
+    TResult Function(BuildContext context)? deposit,
+    TResult Function(BuildContext context)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) =>
@@ -38,18 +44,24 @@ mixin _$AkshitMadanEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialEventOnAkshitMadanEvent value) init,
+    required TResult Function(_DepositeEventOnAkshitMadanEvent value) deposit,
+    required TResult Function(_WithdrawEventOnAkshitMadanEvent value) withdraw,
     required TResult Function(_RefreshEventOnAkshitMadanEvent value) refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult? Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult? Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult? Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
     required TResult orElse(),
   }) =>
@@ -152,6 +164,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(BuildContext context) init,
+    required TResult Function(BuildContext context) deposit,
+    required TResult Function(BuildContext context) withdraw,
     required TResult Function() refresh,
   }) {
     return init(context);
@@ -161,6 +175,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(BuildContext context)? init,
+    TResult? Function(BuildContext context)? deposit,
+    TResult? Function(BuildContext context)? withdraw,
     TResult? Function()? refresh,
   }) {
     return init?.call(context);
@@ -170,6 +186,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(BuildContext context)? init,
+    TResult Function(BuildContext context)? deposit,
+    TResult Function(BuildContext context)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -183,6 +201,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialEventOnAkshitMadanEvent value) init,
+    required TResult Function(_DepositeEventOnAkshitMadanEvent value) deposit,
+    required TResult Function(_WithdrawEventOnAkshitMadanEvent value) withdraw,
     required TResult Function(_RefreshEventOnAkshitMadanEvent value) refresh,
   }) {
     return init(this);
@@ -192,6 +212,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult? Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult? Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult? Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
   }) {
     return init?.call(this);
@@ -201,6 +223,8 @@ class _$InitialEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
     required TResult orElse(),
   }) {
@@ -222,6 +246,326 @@ abstract class _InitialEventOnAkshitMadanEvent implements AkshitMadanEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialEventOnAkshitMadanEventImplCopyWith<
           _$InitialEventOnAkshitMadanEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DepositeEventOnAkshitMadanEventImplCopyWith<$Res> {
+  factory _$$DepositeEventOnAkshitMadanEventImplCopyWith(
+          _$DepositeEventOnAkshitMadanEventImpl value,
+          $Res Function(_$DepositeEventOnAkshitMadanEventImpl) then) =
+      __$$DepositeEventOnAkshitMadanEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
+}
+
+/// @nodoc
+class __$$DepositeEventOnAkshitMadanEventImplCopyWithImpl<$Res>
+    extends _$AkshitMadanEventCopyWithImpl<$Res,
+        _$DepositeEventOnAkshitMadanEventImpl>
+    implements _$$DepositeEventOnAkshitMadanEventImplCopyWith<$Res> {
+  __$$DepositeEventOnAkshitMadanEventImplCopyWithImpl(
+      _$DepositeEventOnAkshitMadanEventImpl _value,
+      $Res Function(_$DepositeEventOnAkshitMadanEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$DepositeEventOnAkshitMadanEventImpl(
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DepositeEventOnAkshitMadanEventImpl
+    implements _DepositeEventOnAkshitMadanEvent {
+  const _$DepositeEventOnAkshitMadanEventImpl(this.context);
+
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'AkshitMadanEvent.deposit(context: $context)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DepositeEventOnAkshitMadanEventImpl &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context);
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DepositeEventOnAkshitMadanEventImplCopyWith<
+          _$DepositeEventOnAkshitMadanEventImpl>
+      get copyWith => __$$DepositeEventOnAkshitMadanEventImplCopyWithImpl<
+          _$DepositeEventOnAkshitMadanEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BuildContext context) init,
+    required TResult Function(BuildContext context) deposit,
+    required TResult Function(BuildContext context) withdraw,
+    required TResult Function() refresh,
+  }) {
+    return deposit(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BuildContext context)? init,
+    TResult? Function(BuildContext context)? deposit,
+    TResult? Function(BuildContext context)? withdraw,
+    TResult? Function()? refresh,
+  }) {
+    return deposit?.call(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BuildContext context)? init,
+    TResult Function(BuildContext context)? deposit,
+    TResult Function(BuildContext context)? withdraw,
+    TResult Function()? refresh,
+    required TResult orElse(),
+  }) {
+    if (deposit != null) {
+      return deposit(context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialEventOnAkshitMadanEvent value) init,
+    required TResult Function(_DepositeEventOnAkshitMadanEvent value) deposit,
+    required TResult Function(_WithdrawEventOnAkshitMadanEvent value) withdraw,
+    required TResult Function(_RefreshEventOnAkshitMadanEvent value) refresh,
+  }) {
+    return deposit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult? Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult? Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
+    TResult? Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
+  }) {
+    return deposit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
+    TResult Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
+    required TResult orElse(),
+  }) {
+    if (deposit != null) {
+      return deposit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DepositeEventOnAkshitMadanEvent implements AkshitMadanEvent {
+  const factory _DepositeEventOnAkshitMadanEvent(final BuildContext context) =
+      _$DepositeEventOnAkshitMadanEventImpl;
+
+  BuildContext get context;
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DepositeEventOnAkshitMadanEventImplCopyWith<
+          _$DepositeEventOnAkshitMadanEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$WithdrawEventOnAkshitMadanEventImplCopyWith<$Res> {
+  factory _$$WithdrawEventOnAkshitMadanEventImplCopyWith(
+          _$WithdrawEventOnAkshitMadanEventImpl value,
+          $Res Function(_$WithdrawEventOnAkshitMadanEventImpl) then) =
+      __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
+}
+
+/// @nodoc
+class __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<$Res>
+    extends _$AkshitMadanEventCopyWithImpl<$Res,
+        _$WithdrawEventOnAkshitMadanEventImpl>
+    implements _$$WithdrawEventOnAkshitMadanEventImplCopyWith<$Res> {
+  __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl(
+      _$WithdrawEventOnAkshitMadanEventImpl _value,
+      $Res Function(_$WithdrawEventOnAkshitMadanEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$WithdrawEventOnAkshitMadanEventImpl(
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$WithdrawEventOnAkshitMadanEventImpl
+    implements _WithdrawEventOnAkshitMadanEvent {
+  const _$WithdrawEventOnAkshitMadanEventImpl(this.context);
+
+  @override
+  final BuildContext context;
+
+  @override
+  String toString() {
+    return 'AkshitMadanEvent.withdraw(context: $context)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WithdrawEventOnAkshitMadanEventImpl &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, context);
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WithdrawEventOnAkshitMadanEventImplCopyWith<
+          _$WithdrawEventOnAkshitMadanEventImpl>
+      get copyWith => __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<
+          _$WithdrawEventOnAkshitMadanEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(BuildContext context) init,
+    required TResult Function(BuildContext context) deposit,
+    required TResult Function(BuildContext context) withdraw,
+    required TResult Function() refresh,
+  }) {
+    return withdraw(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(BuildContext context)? init,
+    TResult? Function(BuildContext context)? deposit,
+    TResult? Function(BuildContext context)? withdraw,
+    TResult? Function()? refresh,
+  }) {
+    return withdraw?.call(context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(BuildContext context)? init,
+    TResult Function(BuildContext context)? deposit,
+    TResult Function(BuildContext context)? withdraw,
+    TResult Function()? refresh,
+    required TResult orElse(),
+  }) {
+    if (withdraw != null) {
+      return withdraw(context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialEventOnAkshitMadanEvent value) init,
+    required TResult Function(_DepositeEventOnAkshitMadanEvent value) deposit,
+    required TResult Function(_WithdrawEventOnAkshitMadanEvent value) withdraw,
+    required TResult Function(_RefreshEventOnAkshitMadanEvent value) refresh,
+  }) {
+    return withdraw(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult? Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult? Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
+    TResult? Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
+  }) {
+    return withdraw?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
+    TResult Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
+    required TResult orElse(),
+  }) {
+    if (withdraw != null) {
+      return withdraw(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _WithdrawEventOnAkshitMadanEvent implements AkshitMadanEvent {
+  const factory _WithdrawEventOnAkshitMadanEvent(final BuildContext context) =
+      _$WithdrawEventOnAkshitMadanEventImpl;
+
+  BuildContext get context;
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WithdrawEventOnAkshitMadanEventImplCopyWith<
+          _$WithdrawEventOnAkshitMadanEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -272,6 +616,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(BuildContext context) init,
+    required TResult Function(BuildContext context) deposit,
+    required TResult Function(BuildContext context) withdraw,
     required TResult Function() refresh,
   }) {
     return refresh();
@@ -281,6 +627,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(BuildContext context)? init,
+    TResult? Function(BuildContext context)? deposit,
+    TResult? Function(BuildContext context)? withdraw,
     TResult? Function()? refresh,
   }) {
     return refresh?.call();
@@ -290,6 +638,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(BuildContext context)? init,
+    TResult Function(BuildContext context)? deposit,
+    TResult Function(BuildContext context)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -303,6 +653,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialEventOnAkshitMadanEvent value) init,
+    required TResult Function(_DepositeEventOnAkshitMadanEvent value) deposit,
+    required TResult Function(_WithdrawEventOnAkshitMadanEvent value) withdraw,
     required TResult Function(_RefreshEventOnAkshitMadanEvent value) refresh,
   }) {
     return refresh(this);
@@ -312,6 +664,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult? Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult? Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult? Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
   }) {
     return refresh?.call(this);
@@ -321,6 +675,8 @@ class _$RefreshEventOnAkshitMadanEventImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialEventOnAkshitMadanEvent value)? init,
+    TResult Function(_DepositeEventOnAkshitMadanEvent value)? deposit,
+    TResult Function(_WithdrawEventOnAkshitMadanEvent value)? withdraw,
     TResult Function(_RefreshEventOnAkshitMadanEvent value)? refresh,
     required TResult orElse(),
   }) {

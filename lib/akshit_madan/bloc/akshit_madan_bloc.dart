@@ -21,6 +21,10 @@ const String privateKey = "0x1b93f6ca6ff89fc96f6c0e4384269df39fdbc274e4bdf181897
 class AkshitMadanEvent with _$AkshitMadanEvent {
   const factory AkshitMadanEvent.init(BuildContext context) = _InitialEventOnAkshitMadanEvent;
 
+  const factory AkshitMadanEvent.deposit(BuildContext context) = _DepositeEventOnAkshitMadanEvent;
+
+  const factory AkshitMadanEvent.withdraw(BuildContext context) = _WithdrawEventOnAkshitMadanEvent;
+
   const factory AkshitMadanEvent.refresh() = _RefreshEventOnAkshitMadanEvent;
 }
 
@@ -58,6 +62,8 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       (event, emit) => event.map(
         init: (event) => _init(event, emit),
         refresh: (event) => _refresh(event, emit),
+        deposit: (event) => _depositEvent(event, emit),
+        withdraw: (event) => _withdrawEvent(event, emit),
       ),
     );
   }
@@ -76,7 +82,7 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       },
     );
 
-    final apiStringUrl = await DefaultAssetBundle.of(event.context).loadString(
+    final apiStringUrl = await rootBundle.loadString(
       'truffle_artifacts/ExpenseManagerContract.json',
     );
 
@@ -86,7 +92,7 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
 
     // network address all that stuff, are from a ganache where you created a test project
     final contractAddress = EthereumAddress.fromHex(
-      abiJson['networks']['5777']['address'],
+      address,
     );
 
     _creds = EthPrivateKey.fromHex(privateKey);
@@ -127,6 +133,8 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       ],
     );
 
+    print(balanceData);
+
     List<TransactionModel> transactions = [];
     // first length "i < transactionsData[0].length" is temp
     // you can even write "i < transactionsData[1].length"
@@ -149,4 +157,14 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
 
     emit(AkshitMadanState.completed());
   }
+
+  void _depositEvent(
+    _DepositeEventOnAkshitMadanEvent event,
+    Emitter<AkshitMadanState> emit,
+  ) async {}
+
+  void _withdrawEvent(
+    _WithdrawEventOnAkshitMadanEvent event,
+    Emitter<AkshitMadanState> emit,
+  ) async {}
 }
