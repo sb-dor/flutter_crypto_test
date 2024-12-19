@@ -25,7 +25,8 @@ class AkshitMadanEvent with _$AkshitMadanEvent {
   const factory AkshitMadanEvent.deposit(int number, String reason) =
       _DepositeEventOnAkshitMadanEvent;
 
-  const factory AkshitMadanEvent.withdraw() = _WithdrawEventOnAkshitMadanEvent;
+  const factory AkshitMadanEvent.withdraw(int number, String reason) =
+      _WithdrawEventOnAkshitMadanEvent;
 
   const factory AkshitMadanEvent.refresh() = _RefreshEventOnAkshitMadanEvent;
 }
@@ -38,8 +39,10 @@ sealed class AkshitMadanState with _$AkshitMadanState {
 
   const factory AkshitMadanState.errorState() = ErrorStateOnAkshitMadanState;
 
-  const factory AkshitMadanState.completed(List<TransactionModel> transactions) =
-      CompletedStateOnAkshitMadanState;
+  const factory AkshitMadanState.completed(
+    List<TransactionModel> transactions,
+    int balance,
+  ) = CompletedStateOnAkshitMadanState;
 }
 
 class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
@@ -49,7 +52,6 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
   late ContractAbi _abiCode;
   late EthereumAddress _contractAddress;
   late EthPrivateKey _creds;
-  int balance = 0;
 
   // Functions from solidity
   late DeployedContract _deployedContract;
@@ -152,10 +154,9 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
       transactions.add(transactionModel);
     }
 
+    final balance = int.tryParse("${balanceData[0]}") ?? 0;
 
-    balance = int.tryParse("${balanceData[0]}") ?? 0;
-
-    emit(AkshitMadanState.completed(transactions));
+    emit(AkshitMadanState.completed(transactions, balance));
   }
 
   void _depositEvent(
@@ -179,10 +180,32 @@ class AkshitMadanBloc extends Bloc<AkshitMadanEvent, AkshitMadanState> {
     );
 
     log(result);
+
+    add(AkshitMadanEvent.refresh());
   }
 
   void _withdrawEvent(
     _WithdrawEventOnAkshitMadanEvent event,
     Emitter<AkshitMadanState> emit,
-  ) async {}
+  ) async {
+    final transaction = Transaction.callContract(
+      contract: _deployedContract,
+      function: _withdraw,
+      parameters: [
+        BigInt.from(event.number),
+        event.reason,
+      ],
+    );
+
+    final result = await _web3Client!.sendTransaction(
+      _creds,
+      transaction,
+      chainId: 1337,
+      fetchChainIdFromNetworkId: false,
+    );
+
+    print(result);
+
+    add(AkshitMadanEvent.refresh());
+  }
 }

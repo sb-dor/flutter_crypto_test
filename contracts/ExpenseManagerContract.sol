@@ -40,7 +40,7 @@ contract ExpenseManagerContract {
         require(balances[msg.sender] >= amount, "No balance");
         balances[msg.sender] -= amount; // decrease amount of balance
         transactions.push(Transaction(msg.sender, amount, reason, block.timestamp));
-        payable(msg.sender).transfer(amount);
+//        payable(msg.sender).transfer(amount);
         emit Withdraw(msg.sender, amount, reason, block.timestamp);
     }
 

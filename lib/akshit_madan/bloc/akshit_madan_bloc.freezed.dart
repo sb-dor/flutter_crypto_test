@@ -20,7 +20,7 @@ mixin _$AkshitMadanEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int number, String reason) deposit,
-    required TResult Function() withdraw,
+    required TResult Function(int number, String reason) withdraw,
     required TResult Function() refresh,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$AkshitMadanEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int number, String reason)? deposit,
-    TResult? Function()? withdraw,
+    TResult? Function(int number, String reason)? withdraw,
     TResult? Function()? refresh,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$AkshitMadanEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int number, String reason)? deposit,
-    TResult Function()? withdraw,
+    TResult Function(int number, String reason)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) =>
@@ -137,7 +137,7 @@ class _$InitialEventOnAkshitMadanEventImpl
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int number, String reason) deposit,
-    required TResult Function() withdraw,
+    required TResult Function(int number, String reason) withdraw,
     required TResult Function() refresh,
   }) {
     return init();
@@ -148,7 +148,7 @@ class _$InitialEventOnAkshitMadanEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int number, String reason)? deposit,
-    TResult? Function()? withdraw,
+    TResult? Function(int number, String reason)? withdraw,
     TResult? Function()? refresh,
   }) {
     return init?.call();
@@ -159,7 +159,7 @@ class _$InitialEventOnAkshitMadanEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int number, String reason)? deposit,
-    TResult Function()? withdraw,
+    TResult Function(int number, String reason)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -296,7 +296,7 @@ class _$DepositeEventOnAkshitMadanEventImpl
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int number, String reason) deposit,
-    required TResult Function() withdraw,
+    required TResult Function(int number, String reason) withdraw,
     required TResult Function() refresh,
   }) {
     return deposit(number, reason);
@@ -307,7 +307,7 @@ class _$DepositeEventOnAkshitMadanEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int number, String reason)? deposit,
-    TResult? Function()? withdraw,
+    TResult? Function(int number, String reason)? withdraw,
     TResult? Function()? refresh,
   }) {
     return deposit?.call(number, reason);
@@ -318,7 +318,7 @@ class _$DepositeEventOnAkshitMadanEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int number, String reason)? deposit,
-    TResult Function()? withdraw,
+    TResult Function(int number, String reason)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -388,6 +388,8 @@ abstract class _$$WithdrawEventOnAkshitMadanEventImplCopyWith<$Res> {
           _$WithdrawEventOnAkshitMadanEventImpl value,
           $Res Function(_$WithdrawEventOnAkshitMadanEventImpl) then) =
       __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int number, String reason});
 }
 
 /// @nodoc
@@ -402,38 +404,72 @@ class __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<$Res>
 
   /// Create a copy of AkshitMadanEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? number = null,
+    Object? reason = null,
+  }) {
+    return _then(_$WithdrawEventOnAkshitMadanEventImpl(
+      null == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$WithdrawEventOnAkshitMadanEventImpl
     implements _WithdrawEventOnAkshitMadanEvent {
-  const _$WithdrawEventOnAkshitMadanEventImpl();
+  const _$WithdrawEventOnAkshitMadanEventImpl(this.number, this.reason);
+
+  @override
+  final int number;
+  @override
+  final String reason;
 
   @override
   String toString() {
-    return 'AkshitMadanEvent.withdraw()';
+    return 'AkshitMadanEvent.withdraw(number: $number, reason: $reason)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WithdrawEventOnAkshitMadanEventImpl);
+            other is _$WithdrawEventOnAkshitMadanEventImpl &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.reason, reason) || other.reason == reason));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, number, reason);
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WithdrawEventOnAkshitMadanEventImplCopyWith<
+          _$WithdrawEventOnAkshitMadanEventImpl>
+      get copyWith => __$$WithdrawEventOnAkshitMadanEventImplCopyWithImpl<
+          _$WithdrawEventOnAkshitMadanEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int number, String reason) deposit,
-    required TResult Function() withdraw,
+    required TResult Function(int number, String reason) withdraw,
     required TResult Function() refresh,
   }) {
-    return withdraw();
+    return withdraw(number, reason);
   }
 
   @override
@@ -441,10 +477,10 @@ class _$WithdrawEventOnAkshitMadanEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int number, String reason)? deposit,
-    TResult? Function()? withdraw,
+    TResult? Function(int number, String reason)? withdraw,
     TResult? Function()? refresh,
   }) {
-    return withdraw?.call();
+    return withdraw?.call(number, reason);
   }
 
   @override
@@ -452,12 +488,12 @@ class _$WithdrawEventOnAkshitMadanEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int number, String reason)? deposit,
-    TResult Function()? withdraw,
+    TResult Function(int number, String reason)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
     if (withdraw != null) {
-      return withdraw();
+      return withdraw(number, reason);
     }
     return orElse();
   }
@@ -501,8 +537,19 @@ class _$WithdrawEventOnAkshitMadanEventImpl
 }
 
 abstract class _WithdrawEventOnAkshitMadanEvent implements AkshitMadanEvent {
-  const factory _WithdrawEventOnAkshitMadanEvent() =
+  const factory _WithdrawEventOnAkshitMadanEvent(
+          final int number, final String reason) =
       _$WithdrawEventOnAkshitMadanEventImpl;
+
+  int get number;
+  String get reason;
+
+  /// Create a copy of AkshitMadanEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$WithdrawEventOnAkshitMadanEventImplCopyWith<
+          _$WithdrawEventOnAkshitMadanEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -553,7 +600,7 @@ class _$RefreshEventOnAkshitMadanEventImpl
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(int number, String reason) deposit,
-    required TResult Function() withdraw,
+    required TResult Function(int number, String reason) withdraw,
     required TResult Function() refresh,
   }) {
     return refresh();
@@ -564,7 +611,7 @@ class _$RefreshEventOnAkshitMadanEventImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(int number, String reason)? deposit,
-    TResult? Function()? withdraw,
+    TResult? Function(int number, String reason)? withdraw,
     TResult? Function()? refresh,
   }) {
     return refresh?.call();
@@ -575,7 +622,7 @@ class _$RefreshEventOnAkshitMadanEventImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(int number, String reason)? deposit,
-    TResult Function()? withdraw,
+    TResult Function(int number, String reason)? withdraw,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -635,7 +682,8 @@ mixin _$AkshitMadanState {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function() errorState,
-    required TResult Function(List<TransactionModel> transactions) completed,
+    required TResult Function(List<TransactionModel> transactions, int balance)
+        completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -643,7 +691,8 @@ mixin _$AkshitMadanState {
     TResult? Function()? initial,
     TResult? Function()? inProgress,
     TResult? Function()? errorState,
-    TResult? Function(List<TransactionModel> transactions)? completed,
+    TResult? Function(List<TransactionModel> transactions, int balance)?
+        completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -651,7 +700,8 @@ mixin _$AkshitMadanState {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function()? errorState,
-    TResult Function(List<TransactionModel> transactions)? completed,
+    TResult Function(List<TransactionModel> transactions, int balance)?
+        completed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -753,7 +803,8 @@ class _$InitialStateOnAkshitMadanStateImpl
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function() errorState,
-    required TResult Function(List<TransactionModel> transactions) completed,
+    required TResult Function(List<TransactionModel> transactions, int balance)
+        completed,
   }) {
     return initial();
   }
@@ -764,7 +815,8 @@ class _$InitialStateOnAkshitMadanStateImpl
     TResult? Function()? initial,
     TResult? Function()? inProgress,
     TResult? Function()? errorState,
-    TResult? Function(List<TransactionModel> transactions)? completed,
+    TResult? Function(List<TransactionModel> transactions, int balance)?
+        completed,
   }) {
     return initial?.call();
   }
@@ -775,7 +827,8 @@ class _$InitialStateOnAkshitMadanStateImpl
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function()? errorState,
-    TResult Function(List<TransactionModel> transactions)? completed,
+    TResult Function(List<TransactionModel> transactions, int balance)?
+        completed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -877,7 +930,8 @@ class _$InProgressStateOnAkshitMadanStateImpl
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function() errorState,
-    required TResult Function(List<TransactionModel> transactions) completed,
+    required TResult Function(List<TransactionModel> transactions, int balance)
+        completed,
   }) {
     return inProgress();
   }
@@ -888,7 +942,8 @@ class _$InProgressStateOnAkshitMadanStateImpl
     TResult? Function()? initial,
     TResult? Function()? inProgress,
     TResult? Function()? errorState,
-    TResult? Function(List<TransactionModel> transactions)? completed,
+    TResult? Function(List<TransactionModel> transactions, int balance)?
+        completed,
   }) {
     return inProgress?.call();
   }
@@ -899,7 +954,8 @@ class _$InProgressStateOnAkshitMadanStateImpl
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function()? errorState,
-    TResult Function(List<TransactionModel> transactions)? completed,
+    TResult Function(List<TransactionModel> transactions, int balance)?
+        completed,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -1001,7 +1057,8 @@ class _$ErrorStateOnAkshitMadanStateImpl
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function() errorState,
-    required TResult Function(List<TransactionModel> transactions) completed,
+    required TResult Function(List<TransactionModel> transactions, int balance)
+        completed,
   }) {
     return errorState();
   }
@@ -1012,7 +1069,8 @@ class _$ErrorStateOnAkshitMadanStateImpl
     TResult? Function()? initial,
     TResult? Function()? inProgress,
     TResult? Function()? errorState,
-    TResult? Function(List<TransactionModel> transactions)? completed,
+    TResult? Function(List<TransactionModel> transactions, int balance)?
+        completed,
   }) {
     return errorState?.call();
   }
@@ -1023,7 +1081,8 @@ class _$ErrorStateOnAkshitMadanStateImpl
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function()? errorState,
-    TResult Function(List<TransactionModel> transactions)? completed,
+    TResult Function(List<TransactionModel> transactions, int balance)?
+        completed,
     required TResult orElse(),
   }) {
     if (errorState != null) {
@@ -1083,7 +1142,7 @@ abstract class _$$CompletedStateOnAkshitMadanStateImplCopyWith<$Res> {
           $Res Function(_$CompletedStateOnAkshitMadanStateImpl) then) =
       __$$CompletedStateOnAkshitMadanStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TransactionModel> transactions});
+  $Res call({List<TransactionModel> transactions, int balance});
 }
 
 /// @nodoc
@@ -1102,12 +1161,17 @@ class __$$CompletedStateOnAkshitMadanStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? transactions = null,
+    Object? balance = null,
   }) {
     return _then(_$CompletedStateOnAkshitMadanStateImpl(
       null == transactions
           ? _value._transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<TransactionModel>,
+      null == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1117,7 +1181,7 @@ class __$$CompletedStateOnAkshitMadanStateImplCopyWithImpl<$Res>
 class _$CompletedStateOnAkshitMadanStateImpl
     implements CompletedStateOnAkshitMadanState {
   const _$CompletedStateOnAkshitMadanStateImpl(
-      final List<TransactionModel> transactions)
+      final List<TransactionModel> transactions, this.balance)
       : _transactions = transactions;
 
   final List<TransactionModel> _transactions;
@@ -1129,8 +1193,11 @@ class _$CompletedStateOnAkshitMadanStateImpl
   }
 
   @override
+  final int balance;
+
+  @override
   String toString() {
-    return 'AkshitMadanState.completed(transactions: $transactions)';
+    return 'AkshitMadanState.completed(transactions: $transactions, balance: $balance)';
   }
 
   @override
@@ -1139,12 +1206,13 @@ class _$CompletedStateOnAkshitMadanStateImpl
         (other.runtimeType == runtimeType &&
             other is _$CompletedStateOnAkshitMadanStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._transactions, _transactions));
+                .equals(other._transactions, _transactions) &&
+            (identical(other.balance, balance) || other.balance == balance));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_transactions));
+      runtimeType, const DeepCollectionEquality().hash(_transactions), balance);
 
   /// Create a copy of AkshitMadanState
   /// with the given fields replaced by the non-null parameter values.
@@ -1162,9 +1230,10 @@ class _$CompletedStateOnAkshitMadanStateImpl
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function() errorState,
-    required TResult Function(List<TransactionModel> transactions) completed,
+    required TResult Function(List<TransactionModel> transactions, int balance)
+        completed,
   }) {
-    return completed(transactions);
+    return completed(transactions, balance);
   }
 
   @override
@@ -1173,9 +1242,10 @@ class _$CompletedStateOnAkshitMadanStateImpl
     TResult? Function()? initial,
     TResult? Function()? inProgress,
     TResult? Function()? errorState,
-    TResult? Function(List<TransactionModel> transactions)? completed,
+    TResult? Function(List<TransactionModel> transactions, int balance)?
+        completed,
   }) {
-    return completed?.call(transactions);
+    return completed?.call(transactions, balance);
   }
 
   @override
@@ -1184,11 +1254,12 @@ class _$CompletedStateOnAkshitMadanStateImpl
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function()? errorState,
-    TResult Function(List<TransactionModel> transactions)? completed,
+    TResult Function(List<TransactionModel> transactions, int balance)?
+        completed,
     required TResult orElse(),
   }) {
     if (completed != null) {
-      return completed(transactions);
+      return completed(transactions, balance);
     }
     return orElse();
   }
@@ -1234,10 +1305,11 @@ class _$CompletedStateOnAkshitMadanStateImpl
 
 abstract class CompletedStateOnAkshitMadanState implements AkshitMadanState {
   const factory CompletedStateOnAkshitMadanState(
-          final List<TransactionModel> transactions) =
+          final List<TransactionModel> transactions, final int balance) =
       _$CompletedStateOnAkshitMadanStateImpl;
 
   List<TransactionModel> get transactions;
+  int get balance;
 
   /// Create a copy of AkshitMadanState
   /// with the given fields replaced by the non-null parameter values.

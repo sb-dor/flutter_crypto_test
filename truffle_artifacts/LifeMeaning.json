@@ -762,15 +762,15 @@
     "absolutePath": "project:/contracts/LifeMeaning.sol",
     "exportedSymbols": {
       "LifeMeaning": [
-        376
+        367
       ]
     },
-    "id": 377,
+    "id": 368,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 355,
+        "id": 346,
         "literals": [
           "solidity",
           "0.8",
@@ -786,9 +786,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 376,
+        "id": 367,
         "linearizedBaseContracts": [
-          376
+          367
         ],
         "name": "LifeMeaning",
         "nameLocation": "66:11:1",
@@ -797,12 +797,12 @@
           {
             "constant": false,
             "functionSelector": "371edc87",
-            "id": 357,
+            "id": 348,
             "mutability": "mutable",
             "name": "lifeMeaning",
             "nameLocation": "97:11:1",
             "nodeType": "VariableDeclaration",
-            "scope": 376,
+            "scope": 367,
             "src": "85:23:1",
             "stateVariable": true,
             "storageLocation": "default",
@@ -811,7 +811,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 356,
+              "id": 347,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "85:4:1",
@@ -824,23 +824,23 @@
           },
           {
             "body": {
-              "id": 366,
+              "id": 357,
               "nodeType": "Block",
               "src": "143:32:1",
               "statements": [
                 {
                   "expression": {
-                    "id": 364,
+                    "id": 355,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 362,
+                      "id": 353,
                       "name": "lifeMeaning",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 357,
+                      "referencedDeclaration": 348,
                       "src": "153:11:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -850,11 +850,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 363,
+                      "id": 354,
                       "name": "x",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 359,
+                      "referencedDeclaration": 350,
                       "src": "167:1:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -867,14 +867,14 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 365,
+                  "id": 356,
                   "nodeType": "ExpressionStatement",
                   "src": "153:15:1"
                 }
               ]
             },
             "functionSelector": "60fe47b1",
-            "id": 367,
+            "id": 358,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -882,17 +882,17 @@
             "nameLocation": "124:3:1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 360,
+              "id": 351,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 359,
+                  "id": 350,
                   "mutability": "mutable",
                   "name": "x",
                   "nameLocation": "133:1:1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 367,
+                  "scope": 358,
                   "src": "128:6:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -901,7 +901,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 358,
+                    "id": 349,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "128:4:1",
@@ -916,12 +916,12 @@
               "src": "127:8:1"
             },
             "returnParameters": {
-              "id": 361,
+              "id": 352,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "143:0:1"
             },
-            "scope": 376,
+            "scope": 367,
             "src": "115:60:1",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -929,32 +929,32 @@
           },
           {
             "body": {
-              "id": 374,
+              "id": 365,
               "nodeType": "Block",
               "src": "223:35:1",
               "statements": [
                 {
                   "expression": {
-                    "id": 372,
+                    "id": 363,
                     "name": "lifeMeaning",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 357,
+                    "referencedDeclaration": 348,
                     "src": "240:11:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 371,
-                  "id": 373,
+                  "functionReturnParameters": 362,
+                  "id": 364,
                   "nodeType": "Return",
                   "src": "233:18:1"
                 }
               ]
             },
             "functionSelector": "6d4ce63c",
-            "id": 375,
+            "id": 366,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -962,23 +962,23 @@
             "nameLocation": "190:3:1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 368,
+              "id": 359,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "193:2:1"
             },
             "returnParameters": {
-              "id": 371,
+              "id": 362,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 370,
+                  "id": 361,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 375,
+                  "scope": 366,
                   "src": "217:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -987,7 +987,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 369,
+                    "id": 360,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "217:4:1",
@@ -1001,14 +1001,14 @@
               ],
               "src": "216:6:1"
             },
-            "scope": 376,
+            "scope": 367,
             "src": "181:77:1",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 377,
+        "scope": 368,
         "src": "57:203:1",
         "usedErrors": []
       }
@@ -1023,12 +1023,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xD5AC5A3A56a47D16AFf81934404b1c21d23F9b39",
-      "transactionHash": "0x8bb68a93ac16ea9426546977032e7a6452f26c36a861605242da4dc7fd41f9d1"
+      "address": "0x76f94d0390a45faa19459FcE282d4d380a5E07f8",
+      "transactionHash": "0xd0910b1bd771f0c7af956f42e661b40def7b199188db9acb7943680dbda8653b"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-12-19T17:04:12.544Z",
+  "updatedAt": "2024-12-19T17:42:34.855Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

@@ -10,13 +10,13 @@ class DepositePage extends StatefulWidget {
 }
 
 class _DepositePageState extends State<DepositePage> {
-  final TextEditingController _addressController = TextEditingController();
+  // final TextEditingController _addressController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _reasonController = TextEditingController();
 
   @override
   void dispose() {
-    _addressController.clear();
+    // _addressController.clear();
     _amountController.clear();
     _reasonController.clear();
     super.dispose();
@@ -34,12 +34,12 @@ class _DepositePageState extends State<DepositePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            TextField(
-              controller: _addressController,
-              decoration: InputDecoration(
-                hintText: "Enter the address",
-              ),
-            ),
+            // TextField(
+            //   controller: _addressController,
+            //   decoration: InputDecoration(
+            //     hintText: "Enter the address",
+            //   ),
+            // ),
             TextField(
               controller: _amountController,
               decoration: InputDecoration(

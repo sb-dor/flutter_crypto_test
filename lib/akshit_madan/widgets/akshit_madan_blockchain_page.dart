@@ -29,7 +29,18 @@ class _AkshitMadanBlockchainPageState extends State<AkshitMadanBlockchainPage> {
         child: Column(
           spacing: 10,
           children: [
-            Text("10 ETH"),
+            BlocBuilder<AkshitMadanBloc, AkshitMadanState>(
+              builder: (context, state) {
+                switch (state) {
+                  case InitialStateOnAkshitMadanState():
+                  case InProgressStateOnAkshitMadanState():
+                  case ErrorStateOnAkshitMadanState():
+                    return CircularProgressIndicator();
+                  case CompletedStateOnAkshitMadanState():
+                    return Text("${state.balance} ETH");
+                }
+              },
+            ),
             Row(
               children: [
                 Expanded(
@@ -102,6 +113,10 @@ class _AkshitMadanBlockchainPageState extends State<AkshitMadanBlockchainPage> {
                                 ),
                                 Text(
                                   transaction.reason,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "${transaction.timestamp ?? ''}",
                                   style: TextStyle(fontSize: 16),
                                 )
                               ],
