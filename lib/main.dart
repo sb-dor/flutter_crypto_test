@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_crypto_test/akshit_madan/bloc/akshit_madan_bloc.dart';
+import 'package:flutter_crypto_test/currencies_information/widgets/currencies_information_widget.dart';
 import 'package:flutter_crypto_test/life_meaning/home_widget.dart';
 import 'package:flutter_crypto_test/life_meaning/life_meaning_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _AkshitMainApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => AkshitMadanBloc(),
       child: MaterialApp(
-        home: AkshitMadanBlockchainPage(),
+        home: CurrenciesInformationWidget(),
       ),
     );
   }
