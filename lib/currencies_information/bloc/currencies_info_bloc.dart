@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -52,32 +53,49 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
 
     emit(CurrenciesInfoState.completed(<CurrencyModel>[]));
 
-    await for (final each in _websocketService.channel.stream.distinct()) {
-      debugPrint("each data $each");
-      _currencySolver(emit, jsonDecode(each));
+    final transformedStream = _websocketService.channel.stream.transform<CurrencyModel>(
+      StreamTransformer.fromHandlers(
+        handleData: (data, sink) {
+          debugPrint("each data in handler $data");
+          final Map<String, dynamic> json = jsonDecode(data);
+          if (json.containsKey('INSTRUMENT') || json.containsKey('instrument')) {
+            sink.add(CurrencyModel.fromJson(json));
+          }
+        },
+        handleError: (error, stackTrace, sink) {
+          // errors will be handled here
+          // 1. send error to your selver
+          // 2. you can transform error or add something else in sink if error occurs
+          /// sink.add(modelThatYouWantToAdd);
+          // if you use this error handler
+          // stream will be stopped
+          /// Error.throwWithStackTrace(error, stackTrace);
+        },
+      ),
+    );
+
+    await for (final each in transformedStream) {
+      _currencySolver(emit, each);
     }
   }
 
-  void _currencySolver(Emitter<CurrenciesInfoState> emit, Map<String, dynamic> json) {
-    if (json.containsKey('INSTRUMENT') || json.containsKey('instrument')) {
-      List<CurrencyModel> currencies =
-          List.from((state as CompletedStateOnCurrenciesInfoState).currencies);
+  void _currencySolver(Emitter<CurrenciesInfoState> emit, CurrencyModel currencyModel) {
+    List<CurrencyModel> currencies = List.from(
+      (state as CompletedStateOnCurrenciesInfoState).currencies,
+    );
 
-      final currencyJson = CurrencyModel.fromJson(json);
+    final currencyModelIndex = currencies.indexWhere(
+      (currency) =>
+          currency.instrument?.trim() == currencyModel.instrument?.trim() &&
+          currency.market?.trim() == currencyModel.market?.trim(),
+    );
 
-      final currencyModelIndex = currencies.indexWhere(
-        (currency) =>
-            currency.instrument?.trim() == currencyJson.instrument?.trim() &&
-            currency.market?.trim() == currencyJson.market?.trim(),
-      );
-
-      if (currencyModelIndex != -1) {
-        currencies[currencyModelIndex] = currencyJson;
-      } else {
-        currencies.add(currencyJson);
-      }
-      emit(CurrenciesInfoState.completed(currencies));
+    if (currencyModelIndex != -1) {
+      currencies[currencyModelIndex] = currencyModel;
+    } else {
+      currencies.add(currencyModel);
     }
+    emit(CurrenciesInfoState.completed(currencies));
   }
 
   @override
