@@ -7,6 +7,7 @@ import 'package:flutter_crypto_test/akshit_madan/bloc/akshit_madan_bloc.dart';
 import 'package:flutter_crypto_test/currencies_information/models/currency_model.dart';
 import 'package:flutter_crypto_test/currencies_information/service/websocket_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'currencies_info_bloc.freezed.dart';
 
@@ -53,7 +54,82 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
 
     emit(CurrenciesInfoState.completed(<CurrencyModel>[]));
 
-    final transformedStream = _websocketService.channel.stream.transform<CurrencyModel>(
+    final transformedStream = CurrencyModelStreamTransformer()
+        .bind(_websocketService.channel.stream)
+        .bufferTime(Duration(seconds: 3));
+
+    await for (final each in transformedStream) {
+      _currencySolver(emit, each);
+    }
+  }
+
+  void _currencySolver(Emitter<CurrenciesInfoState> emit, List<CurrencyModel> currencies) {
+    currencies = _currencyGroupSolver(currencies);
+
+    if (state is InProgressStateOnCurrenciesInfoState) {
+      emit(CurrenciesInfoState.completed(currencies));
+      return;
+    }
+
+    final currentState = state as CompletedStateOnCurrenciesInfoState;
+
+    if (currentState.currencies.isEmpty) {
+      emit(CurrenciesInfoState.completed(currencies));
+      return;
+    }
+
+    List<CurrencyModel> currenciesCopies = List.from(currentState.currencies);
+
+    final Map<String?, (CurrencyModel model, int indexInList)> currenciesModelMap = {};
+
+    for (int index = 0; index < currenciesCopies.length; index++) {
+      final each = currenciesCopies[index];
+      currenciesModelMap[each.instrument?.trim()] = (each, index);
+    }
+
+    for (final each in currencies) {
+      final findCurrencyModel = currenciesModelMap[each.instrument?.trim()];
+      if (findCurrencyModel != null) {
+        currenciesCopies[findCurrencyModel.$2] = each;
+      } else {
+        currenciesCopies.add(each);
+      }
+    }
+
+    emit(CurrenciesInfoState.completed(currenciesCopies));
+  }
+
+  List<CurrencyModel> _currencyGroupSolver(List<CurrencyModel> currencies) {
+    final Map<String?, CurrencyModel> map = {};
+    for (final each in currencies) {
+      final find = map[each.instrument?.trim()];
+      if (find != null) {
+        final inLoopDatetime =
+            DateTime.fromMillisecondsSinceEpoch((each.lastUpdateTimestamp ?? 0) * 1000);
+        final inMapDatetime =
+            DateTime.fromMillisecondsSinceEpoch((find.lastUpdateTimestamp ?? 0) * 1000);
+        if (inLoopDatetime.isAfter(inMapDatetime)) {
+          map[each.instrument?.trim()] = each;
+        }
+      } else {
+        map[each.instrument?.trim()] = each;
+      }
+    }
+
+    return map.entries.map((element) => element.value).toList();
+  }
+
+  @override
+  Future<void> close() {
+    _websocketService.dispose();
+    return super.close();
+  }
+}
+
+class CurrencyModelStreamTransformer extends StreamTransformerBase<dynamic, CurrencyModel> {
+  @override
+  Stream<CurrencyModel> bind(Stream stream) async* {
+    yield* stream.transform(
       StreamTransformer.fromHandlers(
         handleData: (data, sink) {
           debugPrint("each data in handler $data");
@@ -73,34 +149,5 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
         },
       ),
     );
-
-    await for (final each in transformedStream) {
-      _currencySolver(emit, each);
-    }
-  }
-
-  void _currencySolver(Emitter<CurrenciesInfoState> emit, CurrencyModel currencyModel) {
-    List<CurrencyModel> currencies = List.from(
-      (state as CompletedStateOnCurrenciesInfoState).currencies,
-    );
-
-    final currencyModelIndex = currencies.indexWhere(
-      (currency) =>
-          currency.instrument?.trim() == currencyModel.instrument?.trim() &&
-          currency.market?.trim() == currencyModel.market?.trim(),
-    );
-
-    if (currencyModelIndex != -1) {
-      currencies[currencyModelIndex] = currencyModel;
-    } else {
-      currencies.add(currencyModel);
-    }
-    emit(CurrenciesInfoState.completed(currencies));
-  }
-
-  @override
-  Future<void> close() {
-    _websocketService.dispose();
-    return super.close();
   }
 }
