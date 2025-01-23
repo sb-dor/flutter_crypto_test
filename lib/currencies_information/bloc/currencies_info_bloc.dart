@@ -14,6 +14,9 @@ part 'currencies_info_bloc.freezed.dart';
 @freezed
 class CurrenciesInfoEvent with _$CurrenciesInfoEvent {
   const factory CurrenciesInfoEvent.init() = _InitCurrenciesInfoOnCurrenciesInfoEvent;
+
+  const factory CurrenciesInfoEvent.currencyHandler(List<CurrencyModel> currencies) =
+      _CurrentHandlerOnCurrencyInfoEvent;
 }
 
 @freezed
@@ -25,6 +28,8 @@ sealed class CurrenciesInfoState with _$CurrenciesInfoState {
 }
 
 class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> {
+  StreamSubscription<List<CurrencyModel>>? _listCurrencySubs;
+
   final WebsocketService _websocketService;
 
   CurrenciesInfoBloc(this._websocketService)
@@ -34,6 +39,7 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
     on<CurrenciesInfoEvent>(
       (event, emit) => event.map(
         init: (event) => _initialization(event, emit),
+        currencyHandler: (event) => _currencySolver(event, emit),
       ),
     );
   }
@@ -58,13 +64,18 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
         .bind(_websocketService.channel.stream)
         .bufferTime(Duration(seconds: 3));
 
-    await for (final each in transformedStream) {
-      _currencySolver(emit, each);
-    }
+    _listCurrencySubs = transformedStream.listen(
+      (currencies) {
+        add(CurrenciesInfoEvent.currencyHandler(currencies));
+      },
+    );
   }
 
-  void _currencySolver(Emitter<CurrenciesInfoState> emit, List<CurrencyModel> currencies) {
-    currencies = _currencyGroupSolver(currencies);
+  void _currencySolver(
+    _CurrentHandlerOnCurrencyInfoEvent event,
+    Emitter<CurrenciesInfoState> emit,
+  ) {
+    final currencies = _currencyGroupSolver(event.currencies);
 
     if (state is InProgressStateOnCurrenciesInfoState) {
       emit(CurrenciesInfoState.completed(currencies));
@@ -122,6 +133,7 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
   @override
   Future<void> close() {
     _websocketService.dispose();
+    _listCurrencySubs?.cancel();
     return super.close();
   }
 }
