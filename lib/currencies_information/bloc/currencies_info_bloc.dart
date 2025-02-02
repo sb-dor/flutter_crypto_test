@@ -71,6 +71,18 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
       // if from transform comes error you can handle that here
       onError: (error, stackTrace) => Error.throwWithStackTrace(error, stackTrace),
     );
+
+    /// if you want to [pause] the stream:
+    _listCurrencySubs?.pause();
+    /// if you want to [cancel] the stream:
+    // _listCurrencySubs?.cancel();
+    /// if you want to [resume] the stream:
+    // _listCurrencySubs?.resume();
+
+    // remember that the last transformer that we did
+    // has controller and subscription inside
+    // whenever you call pause, cancel, resume here
+    // controller do same thing with subscription inside transformer
   }
 
   void _currencySolver(
