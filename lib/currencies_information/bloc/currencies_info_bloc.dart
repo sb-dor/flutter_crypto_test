@@ -61,13 +61,15 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
     emit(CurrenciesInfoState.completed(<CurrencyModel>[]));
 
     final transformedStream = _websocketService.channel.stream
-        .transform(BetterCurrencyModelStreamTransformer())
+        .transform(AsyncAwaitTransformer())
         .bufferTime(Duration(seconds: 3));
 
     _listCurrencySubs = transformedStream.listen(
       (currencies) {
         add(CurrenciesInfoEvent.currencyHandler(currencies));
       },
+      // if from transform comes error you can handle that here
+      onError: (error, stackTrace) => Error.throwWithStackTrace(error, stackTrace),
     );
   }
 
@@ -178,5 +180,51 @@ class BetterCurrencyModelStreamTransformer extends StreamTransformerBase<dynamic
         },
       ),
     );
+  }
+}
+
+// better to use
+// https://youtu.be/PEAcR3JWQDQ?t=4300
+class AsyncAwaitTransformer extends StreamTransformerBase<dynamic, CurrencyModel> {
+  // don't put async in this function and just return stream of controller in the end
+  // because if get error inside stream you cant handle that
+
+  @override
+  Stream<CurrencyModel> bind(Stream stream) {
+    StreamSubscription? subscription;
+
+    final controller = StreamController<CurrencyModel>(
+      onPause: () => subscription?.pause(),
+      onCancel: () => subscription?.cancel(),
+      onResume: () => subscription?.resume(),
+    );
+
+    subscription = stream.asyncMap((value) async {
+      // do some futures here if you want
+      // for ex Future.delayed(const Duration(seconds: 1));
+      // it means that you have an function that makes request to the server
+      // or a function that calculates something and it takes time
+      // do your futures here
+      CurrencyModel? model;
+      final Map<String, dynamic> json = jsonDecode(value);
+      if (json.containsKey('INSTRUMENT') || json.containsKey('instrument')) {
+        model = CurrencyModel.fromJson(json);
+      }
+      return model;
+    }).listen(
+      (value) {
+        // never do async-await operation inside listen method
+        // or even you can write above function here if its not future
+        //  final Map<String, dynamic> json = jsonDecode(value);
+        //       if (json.containsKey('INSTRUMENT') || json.containsKey('instrument')) {
+        //         return CurrencyModel.fromJson(json);
+        //       }
+        if (value != null) controller.add(value);
+      },
+      onError: (value) => controller.addError(value),
+      onDone: () => controller.close(),
+    );
+
+    return controller.stream;
   }
 }
