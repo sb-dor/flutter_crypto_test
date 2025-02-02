@@ -60,8 +60,8 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
 
     emit(CurrenciesInfoState.completed(<CurrencyModel>[]));
 
-    final transformedStream = CurrencyModelStreamTransformer()
-        .bind(_websocketService.channel.stream)
+    final transformedStream = _websocketService.channel.stream
+        .transform(BetterCurrencyModelStreamTransformer())
         .bufferTime(Duration(seconds: 3));
 
     _listCurrencySubs = transformedStream.listen(
@@ -138,7 +138,24 @@ class CurrenciesInfoBloc extends Bloc<CurrenciesInfoEvent, CurrenciesInfoState> 
   }
 }
 
-class CurrencyModelStreamTransformer extends StreamTransformerBase<dynamic, CurrencyModel> {
+// it's not best idea to use transformers
+// because when error occurs stream stops
+// but you don't have to stop streams when stream throws an error
+class SimpleCurrencyModelStreamTransformer extends StreamTransformerBase<dynamic, CurrencyModel> {
+  @override
+  Stream<CurrencyModel> bind(Stream stream) async* {
+    await for (final each in stream) {
+      // you can use futures here
+      // for ex Future.delayed(const Duration(seconds: 1));
+      final Map<String, dynamic> json = jsonDecode(each);
+      if (json.containsKey('INSTRUMENT') || json.containsKey('instrument')) {
+        yield CurrencyModel.fromJson(json);
+      }
+    }
+  }
+}
+
+class BetterCurrencyModelStreamTransformer extends StreamTransformerBase<dynamic, CurrencyModel> {
   @override
   Stream<CurrencyModel> bind(Stream stream) async* {
     yield* stream.transform(
